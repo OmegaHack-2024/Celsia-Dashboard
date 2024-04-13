@@ -1,19 +1,17 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { NavItem } from "@/types/nav";
-import { useTheme } from "next-themes";
 
 interface MainNavProps {
   items?: NavItem[];
 }
 
 export function MainNav({ items }: MainNavProps) {
-  const { theme } = useTheme();
   return (
     <div className="flex gap-6 md:gap-10">
       <a href="/" className="flex items-center space-x-2">
         <img
-          src={theme === "light" ? "/icon-light.svg" : "/icon-dark.svg"}
+          src="/icon.svg"
           alt="Celsia Dashboard Logo"
           width="45"
           height="45"
