@@ -32,10 +32,12 @@ export default function HomePage() {
 
       <div className="py-12">
         <h2 className="text-2xl font-extrabold text-foreground mb-4">
-          Top Games 🎮
+          Beneficios de Desagregación de Cargas ⚡️
         </h2>
         <p className="mb-8 text-muted-foreground">
-          Top picks for you. Updated daily.
+          La desagregación de cargas es una técnica que permite a los usuarios
+          identificar cuánta energía consume cada dispositivo en su hogar.
+          Algunos de los beneficios de la desagregación de cargas son:
         </p>
         <TopGames />
       </div>
