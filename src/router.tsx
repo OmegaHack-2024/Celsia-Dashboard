@@ -46,9 +46,9 @@ const router = createBrowserRouter([
         }),
       },
       {
-        path: 'tasks',
+        path: 'casas',
         lazy: async () => ({
-          Component: (await import('./pages/tasks')).default,
+          Component: (await import('./pages/casas')).default,
         }),
       },
       {

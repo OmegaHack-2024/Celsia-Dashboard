@@ -1,4 +1,4 @@
-export const tasks = [
+export const casas = [
   {
     id: 'TASK-8782',
     title:
