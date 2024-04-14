@@ -15,16 +15,24 @@ import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
 import { createChart } from 'lightweight-charts'
 import { seriesData } from './data/series-data'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 export default function Dashboard() {
   // Use useRef to get a reference to the container element
   const chartContainerRef = useRef(null)
   const chart = useRef(null) // This will store the chart instance
+  const [consummedWatts, setConsummedWatts] = useState(0)
+  const [houseType, setHouseType] = useState('Casa')
+  const [address, setAddress] = useState('Calle 123 #123')
+  const [devices, setDevices] = useState(8)
 
-  const width = window.innerWidth
-
+  
   useEffect(() => {
+    const width = window.innerWidth
+    setConsummedWatts(573)
+    setHouseType('Apartamento')
+    setAddress('Calle 123 #123')
+    setDevices(8)
     // This condition ensures the chart is only created once
     if (chart.current === null) {
       if (chartContainerRef.current !== null) {
@@ -37,6 +45,9 @@ export default function Dashboard() {
               bottom: 0.1,
             },
           },
+          leftPriceScale: {
+            visible: true,
+          },
           timeScale: {
             rightOffset: 20,
           },
@@ -44,8 +55,23 @@ export default function Dashboard() {
       }
 
       if (chart.current !== null) {
-        const lineSeries = (chart.current as any).addLineSeries()
+        const lineSeries = (chart.current as any).addLineSeries({
+          color: 'rgba(255, 0, 0, 1)', // Red line
+        })
         lineSeries.setData(seriesData)
+        const lineSeries2 = (chart.current as any).addLineSeries()
+        lineSeries2.setData([
+          { time: '2019-04-11', value: 22.01 },
+          { time: '2019-04-12', value: 24.63 },
+          { time: '2019-04-13', value: 23.64 },
+          { time: '2019-04-14', value: 22.89 },
+          { time: '2019-04-15', value: 22.43 },
+          { time: '2019-04-16', value: 25.01 },
+          { time: '2019-04-17', value: 22.63 },
+          { time: '2019-04-18', value: 26.64 },
+          { time: '2019-04-19', value: 24.89 },
+          { time: '2019-04-20', value: 22.43 },
+        ])
       }
     }
 
@@ -75,7 +101,7 @@ export default function Dashboard() {
             Dashboard
           </h1>
           <div className='flex items-center space-x-2'>
-            <Button>Download</Button>
+            <Button>Descargar</Button>
           </div>
         </div>
         <Tabs
@@ -94,9 +120,9 @@ export default function Dashboard() {
           <TabsContent value='overview' className='space-y-4'>
             <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-4'>
                   <CardTitle className='text-sm font-medium'>
-                    Total Revenue
+                    Watts consumidos
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -108,20 +134,17 @@ export default function Dashboard() {
                     strokeWidth='2'
                     className='h-4 w-4 text-muted-foreground'
                   >
-                    <path d='M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' />
+                    <path d='M22 12h-4l-3 9L9 3l-3 9H2' />
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>$45,231.89</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +20.1% from last month
-                  </p>
+                  <div className='text-2xl font-bold'>{consummedWatts}</div>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-4'>
                   <CardTitle className='text-sm font-medium'>
-                    Subscriptions
+                    Tipo de Casa
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -139,15 +162,14 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>+2350</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +180.1% from last month
-                  </p>
+                  <div className='text-2xl font-bold'>{houseType}</div>
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                  <CardTitle className='text-sm font-medium'>Sales</CardTitle>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-4'>
+                  <CardTitle className='text-sm font-medium'>
+                    Dirección
+                  </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
@@ -163,16 +185,14 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>+12,234</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +19% from last month
-                  </p>
+                  <div className='text-2xl font-bold'>{address}</div>
                 </CardContent>
               </Card>
+
               <Card>
-                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
+                <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-4'>
                   <CardTitle className='text-sm font-medium'>
-                    Active Now
+                    Dispositivos Conectados
                   </CardTitle>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -184,14 +204,11 @@ export default function Dashboard() {
                     strokeWidth='2'
                     className='h-4 w-4 text-muted-foreground'
                   >
-                    <path d='M22 12h-4l-3 9L9 3l-3 9H2' />
+                    <path d='M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6' />
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className='text-2xl font-bold'>+573</div>
-                  <p className='text-xs text-muted-foreground'>
-                    +201 since last hour
-                  </p>
+                  <div className='text-2xl font-bold'>{devices}</div>
                 </CardContent>
               </Card>
             </div>
