@@ -56,6 +56,6 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-svh w-full bg-background text-foreground;
   }
 }
