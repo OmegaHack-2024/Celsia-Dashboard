@@ -1,7 +1,7 @@
-# Celsia Dashboard | Energy monitoring and management
+# Wattio Dashboard | Energy monitoring and management
 
-Celsia Dashboard is a modern web application for monitoring and managing energy consumption. The application provides real-time data visualization, analytics, and control features to help users optimize their energy usage and reduce costs.
-Developed with React, TypeScript, and [Shadcn-UI](https://github.com/your-link-to-shadcn-ui-repo) , [Vite](https://vitejs.dev/), Celsia Dashboard offers a modern and responsive user interface with a focus on performance and accessibility. The application leverages the latest web technologies to provide a seamless user experience and fast loading times.
+Wattio Dashboard is a modern web application for monitoring and managing energy consumption. The application provides real-time data visualization, analytics, and control features to help users optimize their energy usage and reduce costs.
+Developed with React, TypeScript, and [Shadcn-UI](https://github.com/your-link-to-shadcn-ui-repo) , [Vite](https://vitejs.dev/), Wattio Dashboard offers a modern and responsive user interface with a focus on performance and accessibility. The application leverages the latest web technologies to provide a seamless user experience and fast loading times.
 
 ## Features
 

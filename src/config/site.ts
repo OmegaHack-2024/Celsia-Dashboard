@@ -1,9 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Celsia Dashboard",
+  name: "Wattio Dashboard",
   description:
-    "Celsia Dashboard is a web application that allows users to monitor their energy consumption and production.",
+    "Wattio Dashboard is a web application that allows users to monitor their energy consumption and production.",
   mainNav: [
     {
       title: "Home",

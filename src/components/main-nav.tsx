@@ -12,7 +12,7 @@ export function MainNav({ items }: MainNavProps) {
       <a href="/" className="flex items-center space-x-2">
         <img
           src="/icon.svg"
-          alt="Celsia Dashboard Logo"
+          alt="Wattio Dashboard Logo"
           width="45"
           height="45"
         />
