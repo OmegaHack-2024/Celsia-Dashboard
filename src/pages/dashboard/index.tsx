@@ -223,9 +223,9 @@ export default function Dashboard() {
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>Dispositivos</CardTitle>
                   <CardDescription>
-                    You made 265 sales this month.
+                    Los colores asociados a los dispositivos son:
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
