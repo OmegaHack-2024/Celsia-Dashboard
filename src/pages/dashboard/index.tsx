@@ -12,12 +12,11 @@ import ThemeSwitch from '@/components/theme-switch'
 import { UserNav } from '@/components/user-nav'
 import { Layout, LayoutBody, LayoutHeader } from '@/components/custom/layout'
 import { RecentSales } from './components/recent-sales'
-import { Overview } from './components/overview'
 import { createChart } from 'lightweight-charts'
 import { seriesData } from './data/series-data'
 import { useRef, useEffect, useState } from 'react'
 import { deviceData } from './data/deviceData'
-import * as d3 from 'd3';
+import * as d3 from 'd3'
 
 export default function Dashboard() {
   // Use useRef to get a reference to the container element
@@ -79,44 +78,65 @@ export default function Dashboard() {
       }
     }
 
-    if (pieChartRef.current) {
-      const data = [10, 20, 30] // Tus datos aquí, puedes poner el estado que maneja tus datos
-      const width = 300
-      const height = 300
-      const outerRadius = height / 2 - 10
-      const innerRadius = outerRadius * 0.75
-      const color = d3.scaleOrdinal(d3.schemeCategory10)
-
-      const svg = d3
-        .select(pieChartRef.current)
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', `translate(${width / 2}, ${height / 2})`)
-
-      const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius)
-
-      const pie = d3
-        .pie()
-        .sort(null)
-        .value((d: any) => d)
-
-      svg
-        .selectAll('path')
-        .data(pie(data))
-        .enter()
-        .append('path')
-        .attr('d', arc)
-        .attr('fill', (d: any, i: any) => color(i))
-    }
-
     // Cleanup function to avoid memory leaks
     return () => {
       if (chart.current !== null) {
         (chart.current as any).remove()
       }
       chart.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    const renderPieChart = () => {
+      const data = [10, 20, 30] // Example data
+      const color = d3.scaleOrdinal(deviceData.map((d) => d.color)) // Use colors from deviceData
+
+      const width = 400
+      const height = 400
+      const outerRadius = height / 2 - 10
+      const innerRadius = outerRadius * 0.75
+
+      let svg = d3.select(pieChartRef.current).select('svg')
+
+      // Check if the SVG already exists
+      if (svg.empty()) {
+        // Create SVG element if it doesn't exist
+        svg = d3
+          .select(pieChartRef.current)
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', `translate(${width / 2}, ${height / 2})`)
+      } else {
+        // Clear the previous content
+        svg.selectAll('*').remove()
+      }
+
+      const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius)
+      const pie = d3
+        .pie()
+        .sort(null)
+        .value((d: any) => d)
+
+      // Bind the data to the paths and enter + update
+      svg
+        .selectAll('path')
+        .data(pie(data))
+        .enter()
+        .append('path')
+        .merge(svg.selectAll('path')) // Merge enter and update selections
+        .attr('d', arc)
+        .attr('fill', (d: any, i: any) => color(i))
+    }
+
+    // Call renderPieChart to create or update the chart
+    renderPieChart()
+
+    // Cleanup function to remove the SVG when the component unmounts
+    return () => {
+      d3.select(pieChartRef.current).select('svg').remove()
     }
   }, [])
 
@@ -254,7 +274,15 @@ export default function Dashboard() {
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
-                  <Overview />
+                  {/* <Overview /> */}
+                  <div
+                    ref={pieChartRef}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  />
                 </CardContent>
               </Card>
               <Card className='col-span-1 lg:col-span-3'>
@@ -273,7 +301,7 @@ export default function Dashboard() {
             <Card className='col-span-1 lg:col-span-4'>
               <div ref={chartContainerRef} />
             </Card>
-            <div className='col-span-1 lg:col-span-3' ref={pieChartRef} />
+            {/* <div className='col-span-1 lg:col-span-3' ref={pieChartRef} /> */}
             {/* </div> */}
           </TabsContent>
         </Tabs>
