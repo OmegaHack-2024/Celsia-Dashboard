@@ -1,67 +1,76 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { LuRefrigerator } from 'react-icons/lu'
+
+const deviceData = [
+  {
+    id: 1,
+    name: 'Refrigerator',
+    icon: <LuRefrigerator />,
+    color: '#4793AF',
+  },
+  {
+    id: 2,
+    name: 'Clothes washer',
+    icon: <LuRefrigerator />,
+    color: '#FFC470',
+  },
+  {
+    id: 3,
+    name: 'Clothes Iron',
+    icon: <LuRefrigerator />,
+    color: '#DD5746',
+  },
+  {
+    id: 4,
+    name: 'Computer',
+    icon: <LuRefrigerator />,
+    color: '#8B322C',
+  },
+  {
+    id: 5,
+    name: 'Oven',
+    icon: <LuRefrigerator />,
+    color: '#FA7070',
+  },
+  {
+    id: 6,
+    name: 'Play',
+    icon: <LuRefrigerator />,
+    color: '#59D5E0',
+  },
+  {
+    id: 7,
+    name: 'TV',
+    icon: <LuRefrigerator />,
+    color: '#C6EBC5',
+  },
+  {
+    id: 8,
+    name: 'Sound system',
+    icon: <LuRefrigerator />,
+    color: '#A1C398',
+  },
+]
 
 export function RecentSales() {
   return (
-    <div className='space-y-8'>
-      <div className='flex items-center'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/01.png' alt='Avatar' />
-          <AvatarFallback>OM</AvatarFallback>
-        </Avatar>
-        <div className='ml-4 space-y-1'>
-          <p className='text-sm font-medium leading-none'>Olivia Martin</p>
-          <p className='text-sm text-muted-foreground'>
-            olivia.martin@email.com
-          </p>
+    <div className='flex flex-col space-y-4'>
+      {deviceData.map((device) => (
+        <div key={device.id} className='flex items-start'>
+          <div className='h-9 w-9 flex-none'>{device.icon}</div>
+          <div className='ml-4 flex-grow'>
+            <p className='text-sm font-medium leading-none'>{device.name}</p>
+          </div>
+          <div className='ml-4 flex-none'>
+            <div
+              className='h-9 w-9 rounded-full'
+              style={{ backgroundColor: device.color }}
+            ></div>
+          </div>
+          <div className='ml-2 flex-none'>
+            <p className='text-sm font-medium leading-none'>{device.color}</p>
+          </div>
         </div>
-        <div className='ml-auto font-medium'>+$1,999.00</div>
-      </div>
-      <div className='flex items-center'>
-        <Avatar className='flex h-9 w-9 items-center justify-center space-y-0 border'>
-          <AvatarImage src='/avatars/02.png' alt='Avatar' />
-          <AvatarFallback>JL</AvatarFallback>
-        </Avatar>
-        <div className='ml-4 space-y-1'>
-          <p className='text-sm font-medium leading-none'>Jackson Lee</p>
-          <p className='text-sm text-muted-foreground'>jackson.lee@email.com</p>
-        </div>
-        <div className='ml-auto font-medium'>+$39.00</div>
-      </div>
-      <div className='flex items-center'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/03.png' alt='Avatar' />
-          <AvatarFallback>IN</AvatarFallback>
-        </Avatar>
-        <div className='ml-4 space-y-1'>
-          <p className='text-sm font-medium leading-none'>Isabella Nguyen</p>
-          <p className='text-sm text-muted-foreground'>
-            isabella.nguyen@email.com
-          </p>
-        </div>
-        <div className='ml-auto font-medium'>+$299.00</div>
-      </div>
-      <div className='flex items-center'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/04.png' alt='Avatar' />
-          <AvatarFallback>WK</AvatarFallback>
-        </Avatar>
-        <div className='ml-4 space-y-1'>
-          <p className='text-sm font-medium leading-none'>William Kim</p>
-          <p className='text-sm text-muted-foreground'>will@email.com</p>
-        </div>
-        <div className='ml-auto font-medium'>+$99.00</div>
-      </div>
-      <div className='flex items-center'>
-        <Avatar className='h-9 w-9'>
-          <AvatarImage src='/avatars/05.png' alt='Avatar' />
-          <AvatarFallback>SD</AvatarFallback>
-        </Avatar>
-        <div className='ml-4 space-y-1'>
-          <p className='text-sm font-medium leading-none'>Sofia Davis</p>
-          <p className='text-sm text-muted-foreground'>sofia.davis@email.com</p>
-        </div>
-        <div className='ml-auto font-medium'>+$39.00</div>
-      </div>
+      ))}
     </div>
   )
 }
