@@ -97,7 +97,7 @@ export default function Dashboard() {
       const outerRadius = height / 2 - 10
       const innerRadius = outerRadius * 0.75
 
-      let svg = d3.select(pieChartRef.current).select('svg')
+      let svg: any = d3.select(pieChartRef.current).select('svg')
 
       // Check if the SVG already exists
       if (svg.empty()) {
@@ -127,8 +127,8 @@ export default function Dashboard() {
         .enter()
         .append('path')
         .merge(svg.selectAll('path')) // Merge enter and update selections
-        .attr('d', arc)
-        .attr('fill', (d: any, i: any) => color(i))
+        .attr('d', (d: any) => arc(d) as string) // Add type assertion to fix the problem
+        .attr('fill', (_: any, i: any) => color(i))
     }
 
     // Call renderPieChart to create or update the chart
