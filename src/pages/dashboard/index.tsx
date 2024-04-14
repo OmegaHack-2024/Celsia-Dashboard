@@ -12,8 +12,43 @@ import { UserNav } from '@/components/user-nav'
 import { Layout, LayoutBody, LayoutHeader } from '@/components/custom/layout'
 import { RecentSales } from './components/recent-sales'
 import { Overview } from './components/overview'
+import { createChart } from 'lightweight-charts'
+import { seriesData } from './data/series-data'
+import { useRef, useEffect } from 'react'
 
 export default function Dashboard() {
+  // Use useRef to get a reference to the container element
+  const chartContainerRef = useRef(null)
+  const chart = useRef(null) // This will store the chart instance
+
+  useEffect(() => {
+    // This condition ensures the chart is only created once
+    if (chart.current === null) {
+      chart.current = createChart(chartContainerRef.current, {
+        width: 600,
+        height: 300,
+        rightPriceScale: {
+          scaleMargins: {
+            top: 0.2,
+            bottom: 0.1,
+          },
+        },
+        timeScale: {
+          rightOffset: 2,
+        },
+      })
+
+      const lineSeries = chart.current.addLineSeries()
+      lineSeries.setData(seriesData)
+    }
+
+    // Cleanup function to avoid memory leaks
+    return () => {
+      chart.current.remove()
+      chart.current = null
+    }
+  }, []) // The empty array ensures this effect runs only once
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
@@ -48,6 +83,7 @@ export default function Dashboard() {
             </TabsList>
           </div>
           <TabsContent value='overview' className='space-y-4'>
+            <div ref={chartContainerRef} />
             <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
