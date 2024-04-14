@@ -22,12 +22,14 @@ export default function Dashboard() {
   const chartContainerRef = useRef(null)
   const chart = useRef(null) // This will store the chart instance
 
+  const width = window.innerWidth
+
   useEffect(() => {
     // This condition ensures the chart is only created once
     if (chart.current === null) {
       if (chartContainerRef.current !== null) {
         chart.current = createChart(chartContainerRef.current, {
-          width: 600,
+          width: width * 0.75,
           height: 300,
           rightPriceScale: {
             scaleMargins: {
@@ -36,7 +38,7 @@ export default function Dashboard() {
             },
           },
           timeScale: {
-            rightOffset: 2,
+            rightOffset: 20,
           },
         }) as any
       }
@@ -54,7 +56,7 @@ export default function Dashboard() {
       }
       chart.current = null
     }
-  }, []) // The empty array ensures this effect runs only once
+  }, [])
 
   return (
     <Layout>
@@ -90,7 +92,6 @@ export default function Dashboard() {
             </TabsList>
           </div>
           <TabsContent value='overview' className='space-y-4'>
-            <div ref={chartContainerRef} />
             <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
               <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
@@ -215,6 +216,11 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
+            {/* <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-2'> */}
+            <Card className='col-span-1 lg:col-span-4'>
+              <div ref={chartContainerRef} />
+            </Card>
+            {/* </div> */}
           </TabsContent>
         </Tabs>
       </LayoutBody>
