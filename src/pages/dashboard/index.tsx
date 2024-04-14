@@ -17,10 +17,12 @@ import { createChart } from 'lightweight-charts'
 import { seriesData } from './data/series-data'
 import { useRef, useEffect, useState } from 'react'
 import { deviceData } from './data/deviceData'
+import * as d3 from 'd3';
 
 export default function Dashboard() {
   // Use useRef to get a reference to the container element
   const chartContainerRef = useRef(null)
+  const pieChartRef = useRef(null) // Referencia para el contenedor del gráfico de pastel
   const chart = useRef(null) // This will store the chart instance
   const [consummedWatts, setConsummedWatts] = useState(0)
   const [houseType, setHouseType] = useState('Casa')
@@ -75,6 +77,38 @@ export default function Dashboard() {
           { time: '2019-04-20', value: 22.43 },
         ])
       }
+    }
+
+    if (pieChartRef.current) {
+      const data = [10, 20, 30] // Tus datos aquí, puedes poner el estado que maneja tus datos
+      const width = 300
+      const height = 300
+      const outerRadius = height / 2 - 10
+      const innerRadius = outerRadius * 0.75
+      const color = d3.scaleOrdinal(d3.schemeCategory10)
+
+      const svg = d3
+        .select(pieChartRef.current)
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', `translate(${width / 2}, ${height / 2})`)
+
+      const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius)
+
+      const pie = d3
+        .pie()
+        .sort(null)
+        .value((d: any) => d)
+
+      svg
+        .selectAll('path')
+        .data(pie(data))
+        .enter()
+        .append('path')
+        .attr('d', arc)
+        .attr('fill', (d: any, i: any) => color(i))
     }
 
     // Cleanup function to avoid memory leaks
@@ -239,6 +273,7 @@ export default function Dashboard() {
             <Card className='col-span-1 lg:col-span-4'>
               <div ref={chartContainerRef} />
             </Card>
+            <div className='col-span-1 lg:col-span-3' ref={pieChartRef} />
             {/* </div> */}
           </TabsContent>
         </Tabs>
