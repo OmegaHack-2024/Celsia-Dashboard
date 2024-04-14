@@ -16,6 +16,7 @@ import { Overview } from './components/overview'
 import { createChart } from 'lightweight-charts'
 import { seriesData } from './data/series-data'
 import { useRef, useEffect, useState } from 'react'
+import { deviceData } from './data/deviceData'
 
 export default function Dashboard() {
   // Use useRef to get a reference to the container element
@@ -26,7 +27,6 @@ export default function Dashboard() {
   const [address, setAddress] = useState('Calle 123 #123')
   const [devices, setDevices] = useState(8)
 
-  
   useEffect(() => {
     const width = window.innerWidth
     setConsummedWatts(573)
@@ -56,10 +56,12 @@ export default function Dashboard() {
 
       if (chart.current !== null) {
         const lineSeries = (chart.current as any).addLineSeries({
-          color: 'rgba(255, 0, 0, 1)', // Red line
+          color: deviceData[0].color,
         })
         lineSeries.setData(seriesData)
-        const lineSeries2 = (chart.current as any).addLineSeries()
+        const lineSeries2 = (chart.current as any).addLineSeries({
+          color: deviceData[1].color,
+        })
         lineSeries2.setData([
           { time: '2019-04-11', value: 22.01 },
           { time: '2019-04-12', value: 24.63 },
