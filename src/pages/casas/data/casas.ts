@@ -1,23 +1,23 @@
 export const casas = [
   {
-    id: 'TASK-8782',
+    id: 'Casa 1',
     title:
-      "You can't compress the program without quantifying the open-source SSD pixel!",
+      "Cra #123 - 123, Barrio 1, Ciudad 1, Departamento 1, Colombia",
     status: 'in progress',
     label: 'documentation',
     priority: 'medium',
   },
   {
-    id: 'TASK-7878',
+    id: 'Casa 2',
     title:
-      'Try to calculate the EXE feed, maybe it will index the multi-byte pixel!',
+      'Cra #213 - 123, Barrio 1, Ciudad 1, Departamento 1, Colombia',
     status: 'backlog',
     label: 'documentation',
     priority: 'medium',
   },
   {
-    id: 'TASK-7839',
-    title: 'We need to bypass the neural TCP card!',
+    id: 'Casa 3',
+    title: 'Dirección de la casa 3',
     status: 'todo',
     label: 'bug',
     priority: 'high',

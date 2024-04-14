@@ -274,7 +274,6 @@ export default function Dashboard() {
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className='pl-2'>
-                  {/* <Overview /> */}
                   <div
                     ref={pieChartRef}
                     style={{
@@ -297,12 +296,9 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
             </div>
-            {/* <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-2'> */}
             <Card className='col-span-1 lg:col-span-4'>
               <div ref={chartContainerRef} />
             </Card>
-            {/* <div className='col-span-1 lg:col-span-3' ref={pieChartRef} /> */}
-            {/* </div> */}
           </TabsContent>
         </Tabs>
       </LayoutBody>
