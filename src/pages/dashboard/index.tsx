@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from '@/components/custom/button'
 import {
   Card,
@@ -24,27 +25,33 @@ export default function Dashboard() {
   useEffect(() => {
     // This condition ensures the chart is only created once
     if (chart.current === null) {
-      chart.current = createChart(chartContainerRef.current, {
-        width: 600,
-        height: 300,
-        rightPriceScale: {
-          scaleMargins: {
-            top: 0.2,
-            bottom: 0.1,
+      if (chartContainerRef.current !== null) {
+        chart.current = createChart(chartContainerRef.current, {
+          width: 600,
+          height: 300,
+          rightPriceScale: {
+            scaleMargins: {
+              top: 0.2,
+              bottom: 0.1,
+            },
           },
-        },
-        timeScale: {
-          rightOffset: 2,
-        },
-      })
+          timeScale: {
+            rightOffset: 2,
+          },
+        }) as any
+      }
 
-      const lineSeries = chart.current.addLineSeries()
-      lineSeries.setData(seriesData)
+      if (chart.current !== null) {
+        const lineSeries = (chart.current as any).addLineSeries()
+        lineSeries.setData(seriesData)
+      }
     }
 
     // Cleanup function to avoid memory leaks
     return () => {
-      chart.current.remove()
+      if (chart.current !== null) {
+        (chart.current as any).remove()
+      }
       chart.current = null
     }
   }, []) // The empty array ensures this effect runs only once
